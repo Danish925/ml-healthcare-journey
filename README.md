@@ -1,23 +1,27 @@
 # ml-healthcare-journey
 
-Documenting my path toward Healthcare AI research — combining a 
-self-taught machine learning foundation with a genuine medical 
-domain background (NEET preparation), applied to real clinical 
-datasets with an emphasis on methodological honesty.
+Documenting my journey toward Healthcare AI research — combining a
+self-taught machine learning foundation with prior intensive study of
+biology and human physiology during NEET preparation. This repository
+applies machine learning to healthcare datasets with an emphasis on
+methodological honesty, clinical interpretation, and reliable evaluation.
 
 ## Why Healthcare AI
 
-My interest in this space comes from a background in serious NEET 
-(medical entrance) preparation — which gives me a working 
-understanding of clinical data, physiology, and diagnostic 
-reasoning that most CS-background ML practitioners don't have. 
-Every project here tries to bring that domain knowledge into the 
-preprocessing and interpretation, not just the modeling.
+My interest in Healthcare AI grew from intensive NEET preparation,
+where I developed a strong foundation in biology and human physiology.
+Although I ultimately pursued Computer Science, my earlier exposure to
+medical science shaped my interest in applying machine learning to
+healthcare problems.
+
+Through each project, I aim to go beyond model accuracy by understanding
+the clinical meaning of features, identifying limitations in the data and
+methodology, and evaluating model results in the context of healthcare.
 
 ## Projects
 
 | # | Project | Status | Key Technique | Result |
-|---|---------|--------|----------------|--------|
+|---|---------|--------|---------------|--------|
 | 1 | [Diabetes Prediction](./diabetes-prediction) | ✅ Complete | Data leakage detection & fix, Random Forest | 77.27% accuracy (leakage-free) |
 | 2 | Heart Disease Prediction | 🔄 In Progress | Clinical feature comparison, model benchmarking | — |
 | 3 | COVID-19 Clinical Outcomes | 📋 Planned | XGBoost, SMOTE for class imbalance | — |
@@ -28,24 +32,30 @@ preprocessing and interpretation, not just the modeling.
 
 ## A Recurring Principle: Honest Evaluation
 
-The Diabetes Prediction project (#1) includes a documented case of 
-catching and fixing a data-leakage bug in my own pipeline — the 
-initial result (88.31% accuracy) turned out to be inflated by a 
-target-leakage issue in missing-value imputation. The corrected, 
-methodologically sound result is 77.27%. I'd rather report a lower, 
-defensible number than an inflated one, and I'm carrying that habit 
-into every project in this repo.
+The Diabetes Prediction project (#1) includes a documented case of
+identifying and correcting data leakage in my own machine learning
+pipeline.
+
+The initial model achieved 88.31% accuracy, but further investigation
+revealed that the result was inflated by target leakage during
+missing-value imputation. After redesigning the preprocessing workflow
+to maintain strict separation between training and test data, the
+corrected model achieved 77.27% accuracy.
+
+I would rather report a lower, defensible result than an inflated one.
+That principle of methodological honesty is something I intend to carry
+into every project in this repository.
 
 ## Tech Stack
 
-Python · pandas · scikit-learn · XGBoost · PyTorch (from Project 3 
-onward) · matplotlib · seaborn
+Python · pandas · scikit-learn · XGBoost · PyTorch · matplotlib · seaborn
 
 ## About Me
 
-Mohammad Danish — BCA (Online), Amity University, graduating 2027. 
-Building this portfolio toward graduate research in Healthcare AI, 
-targeting the MEXT Scholarship (Japan).
+I'm Mohammad Danish, an online BCA student at Amity University,
+graduating in 2027. I am building this portfolio as part of my preparation
+for graduate research in Healthcare AI, with the goal of pursuing research
+in Japan through the MEXT Scholarship.
 
 - GitHub: [@Danish925](https://github.com/Danish925)
 - LinkedIn: [mohd-danish-a89015313](https://www.linkedin.com/in/mohd-danish-a89015313)
