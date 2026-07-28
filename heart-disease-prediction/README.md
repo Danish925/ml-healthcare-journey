@@ -93,17 +93,6 @@ heart-disease-prediction/
 
 ---
 
-## ▶️ How to Run
-
-```bash
-git clone https://github.com/<your-username>/ml-healthcare-journey.git
-cd ml-healthcare-journey/heart-disease-prediction
-pip install numpy pandas matplotlib seaborn scikit-learn
-jupyter notebook heart-disease-prediction.ipynb
-```
-
----
-
 ## 🚀 Next Steps
 
 - Train and compare baseline models (Logistic Regression, KNN, Random Forest, SVM) on the scaled/unscaled splits as appropriate.
