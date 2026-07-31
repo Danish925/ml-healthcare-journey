@@ -1,25 +1,46 @@
 # ❤️ Heart Disease Prediction using Machine Learning
 
-Exploratory Data Analysis and preprocessing pipeline on the UCI Cleveland Heart Disease dataset, built as part of a Healthcare AI portfolio. The goal is to understand which clinical and demographic features are associated with heart disease and prepare a leakage-free pipeline for model training.
+An end-to-end machine learning project on the UCI Cleveland Heart Disease dataset, built as part of my Healthcare AI portfolio. This project demonstrates the complete machine learning workflow—from data cleaning and exploratory data analysis to model training, hyperparameter tuning, and performance evaluation—to predict the presence of heart disease using clinical patient data.
+
+---
+
+## ✨ Highlights
+
+- Complete end-to-end machine learning workflow
+- Leakage-free preprocessing pipeline
+- Exploratory Data Analysis (EDA)
+- Comparison of four classification algorithms
+- Hyperparameter tuning using GridSearchCV
+- Feature importance analysis
+- Error analysis on misclassified samples
+- Healthcare-focused evaluation using Recall and ROC-AUC
 
 ---
 
 ## 📋 Project Overview
 
-Heart disease is one of the leading causes of death worldwide, and early prediction can help clinicians identify high-risk patients sooner. This project works through the full early-stage ML workflow on real patient data:
+Heart disease is one of the leading causes of death worldwide, and early prediction can help clinicians identify high-risk patients sooner.
+
+This project follows a complete machine learning workflow on real patient data:
 
 1. Data quality assessment and cleaning
-2. Exploratory Data Analysis (EDA) with visual and statistical validation
+2. Exploratory Data Analysis (EDA)
 3. Handling disguised missing values
-4. Leakage-safe preprocessing (stratified split → imputation → scaling)
+4. Leakage-safe preprocessing
+5. Training multiple machine learning models
+6. Hyperparameter tuning using GridSearchCV
+7. Model evaluation and comparison
+8. Feature importance analysis
+9. Error analysis and interpretation
 
-Model training and evaluation is the next phase of this project (see [Next Steps](#-next-steps)).
+The primary objective is not only to build an accurate predictive model but also to develop a reproducible and leakage-free machine learning pipeline suitable for healthcare data.
 
 ---
 
 ## 📊 Dataset
 
 **Source:** UCI Heart Disease Dataset (Cleveland subset)
+
 **Size:** 303 rows × 14 columns (302 rows after duplicate removal)
 
 | Column | Description | Values |
@@ -43,66 +64,140 @@ Model training and evaluation is the next phase of this project (see [Next Steps
 
 ## 🧹 Data Cleaning
 
-- **Missing values:** None detected via `.isnull()` — but see disguised missing values below.
+- **Missing values:** None detected via `.isnull()` — but disguised missing values were identified.
 - **Duplicates:** 1 duplicate row found and removed (303 → 302 rows).
-- **Disguised missing values:** `ca` contained 4 rows with an invalid code of `4` (valid range is 0–3), and `thal` contained 2 rows with an invalid code of `0` (valid categories are 1–3). Per the original UCI documentation, these are not real categories — they're missing data encoded as numbers. Since the dataset is small (302 rows), these rows were preserved and the invalid codes converted to `NaN` rather than dropped.
+- **Disguised missing values:** `ca` contained invalid values (`4`) and `thal` contained invalid values (`0`). According to the original UCI documentation, these represent missing values rather than valid categories. They were converted to `NaN` instead of removing the affected rows to preserve valuable clinical information.
 
 ---
 
 ## 🔍 Key EDA Insights
 
-- **Class balance:** Target distribution is 165 (disease) vs. 138 (no disease) — reasonably balanced, which is favorable for classification without needing resampling.
-- **Chest pain type (`cp`)** shows one of the strongest relationships with the target, making it a likely high-importance feature.
-- **Maximum heart rate (`thalach`)** correlates positively with disease presence; **`ca`, `exang`, and `oldpeak`** correlate negatively — these stood out clearly in the correlation heatmap and the feature-correlation bar chart.
-- **Gender:** Male patients dominate the dataset, so gender-based patterns should be read with that imbalance in mind rather than treated as a standalone predictor.
-- **Counter-intuitive finding:** Patients *without* heart disease had a higher average age (56.6 vs. 52.6) and higher average `oldpeak` (1.59 vs. 0.59) than patients *with* heart disease — the opposite of the "textbook" expectation. This was verified against actual group means and correlation values rather than assumed, and is a known quirk of how `target` is encoded in this dataset version.
-- **Outliers:** `chol` and `trestbps` have a handful of high-value outliers; since this is clinical data, these were treated as potentially genuine medical extremes rather than errors, and left untouched pending further modeling decisions.
+- **Class balance:** Target distribution is reasonably balanced, making the dataset suitable for classification without resampling.
+- **Chest pain type (`cp`)** shows one of the strongest relationships with heart disease.
+- **Maximum heart rate (`thalach`)** correlates positively with disease presence.
+- **`ca`, `exang`, and `oldpeak`** show strong negative correlations with the target.
+- **Male patients** dominate the dataset; therefore, gender-based conclusions should be interpreted carefully.
+- **Unexpected finding:** Patients without heart disease had higher average age and `oldpeak` values than patients diagnosed with heart disease in this dataset version. This observation was validated statistically instead of relying on assumptions.
+- **Outliers:** High values in `chol` and `trestbps` were retained because they likely represent genuine clinical observations rather than data entry errors.
 
 ---
 
 ## ⚙️ Preprocessing Pipeline
 
-Every step below was ordered specifically to avoid data leakage:
+Every preprocessing step was carefully ordered to prevent data leakage.
 
-1. **Invalid value handling** — `ca == 4` and `thal == 0` replaced with `NaN`.
-2. **Feature/target split** — `X` (13 features) and `y` (`target`) separated.
-3. **Stratified train-test split** — 80/20 split (241 train / 61 test rows), stratified on `target` to preserve class balance in both sets.
-4. **Missing value imputation** — mode computed **only on the training set**, then applied to both train and test sets, simulating how the model would see genuinely unseen data in production.
-5. **Feature scaling** — `StandardScaler` fit only on training data, then applied to both sets. Scaled copies are kept separate from the raw versions so distance-based/gradient-based models (Logistic Regression, KNN, SVM) can use them without affecting tree-based models that don't need scaling.
-6. **Verification** — confirmed scaled training features have mean ≈ 0 and std ≈ 1.
+1. Invalid values (`ca == 4`, `thal == 0`) converted to `NaN`.
+2. Feature matrix (`X`) and target variable (`y`) separated.
+3. Stratified train-test split (80/20) to preserve class distribution.
+4. Missing values imputed using statistics calculated **only from the training data**.
+5. StandardScaler fitted exclusively on training data and applied to both training and test datasets.
+6. Separate scaled and unscaled datasets maintained because tree-based algorithms do not require feature scaling.
+7. Verification performed to ensure correctly standardized features.
+
+---
+
+## 🤖 Machine Learning Models
+
+Four supervised learning algorithms were trained and compared.
+
+| Model | Scaling Required | Purpose |
+|--------|------------------|----------|
+| Logistic Regression | ✅ | Linear baseline classifier |
+| K-Nearest Neighbors (KNN) | ✅ | Distance-based classifier |
+| Support Vector Machine (SVM) | ✅ | Margin-based classifier |
+| Random Forest | ❌ | Ensemble tree-based classifier |
+
+The Random Forest model was further optimized using **GridSearchCV** with **5-fold cross-validation**.
+
+---
+
+## 📈 Model Performance
+
+| Model | Accuracy | ROC-AUC |
+|--------|---------:|---------:|
+| Logistic Regression | 80.33% | 0.895 |
+| KNN | 77.05% | 0.875 |
+| SVM | 80.33% | **0.908** |
+| Random Forest (Tuned) | **81.97%** | 0.899 |
+
+### 🏆 Best Model
+
+The tuned **Random Forest** model delivered the best overall balance between predictive performance and generalization.
+
+**Best Hyperparameters**
+
+- `n_estimators = 100`
+- `max_depth = 5`
+- `min_samples_split = 5`
+- `min_samples_leaf = 2`
+
+**Cross Validation Accuracy**
+
+**85.09%**
+
+**Final Test Performance**
+
+- Accuracy: **81.97%**
+- Precision: **77.50%**
+- Recall: **93.94%**
+- F1 Score: **84.93%**
+- ROC-AUC: **0.899**
+
+---
+
+## 📌 Feature Importance & Error Analysis
+
+The tuned Random Forest model was used to identify the most influential clinical features contributing to heart disease prediction.
+
+An additional error analysis was performed by examining False Positives and False Negatives to better understand model limitations.
+
+The high Recall score (**93.94%**) indicates that the model successfully identified the majority of patients with heart disease, which is particularly important in medical screening applications.
 
 ---
 
 ## 🛠️ Tech Stack
 
 - **Language:** Python
-- **Data handling:** pandas, numpy
-- **Visualization:** matplotlib, seaborn
-- **Machine Learning:** scikit-learn (`train_test_split`, `StandardScaler`)
+- **Data Handling:** Pandas, NumPy
+- **Visualization:** Matplotlib, Seaborn
+- **Machine Learning:** Scikit-learn
+- **Model Selection:** GridSearchCV
+- **Notebook Environment:** Jupyter Notebook
 
 ---
 
 ## 📁 Repository Structure
 
-```
+```text
 heart-disease-prediction/
 │
-├── heart-disease-prediction.ipynb   # Full EDA + preprocessing notebook
-└── README.md                        # Project documentation
+├── heart-disease-prediction.ipynb
+├── README.md
+└── requirements.txt
 ```
 
 ---
 
-## 🚀 Next Steps
+## 🔮 Future Improvements
 
-- Train and compare baseline models (Logistic Regression, KNN, Random Forest, SVM) on the scaled/unscaled splits as appropriate.
-- Evaluate using accuracy, precision, recall, F1, and ROC-AUC — not accuracy alone, given the clinical context where false negatives carry real cost.
-- Perform feature importance analysis to cross-check against the EDA correlation findings.
-- Consider hyperparameter tuning and cross-validation before finalizing a model.
+- Evaluate additional ensemble algorithms such as XGBoost and LightGBM.
+- Validate the model using external clinical datasets.
+- Improve model interpretability using SHAP values.
+- Deploy the trained model as a web application.
+- Investigate probability calibration for clinical decision support.
+
+---
+
+## 🙏 Acknowledgements
+
+- UCI Machine Learning Repository
+- Scikit-learn Documentation
+- Matplotlib & Seaborn Documentation
 
 ---
 
 ## 👤 Author
 
-**Danish**
-Part of an ongoing Healthcare AI portfolio — see [`ml-healthcare-journey`](https://github.com/) for related projects (Titanic Survival Analysis, Diabetes Prediction).
+**Mohd Danish**
+
+This project is part of my **Healthcare AI Portfolio**, where I apply machine learning techniques to real-world clinical datasets while emphasizing reproducible workflows, proper evaluation, and leakage-free model development.
