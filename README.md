@@ -1,61 +1,107 @@
-# ml-healthcare-journey
+# 🩺 ML Healthcare Journey
 
-Documenting my journey toward Healthcare AI research — combining a
-self-taught machine learning foundation with prior intensive study of
-biology and human physiology during NEET preparation. This repository
-applies machine learning to healthcare datasets with an emphasis on
-methodological honesty, clinical interpretation, and reliable evaluation.
+A collection of end-to-end machine learning projects focused on healthcare applications.
 
-## Why Healthcare AI
+This repository documents my journey in applying machine learning to real-world healthcare datasets while emphasizing reproducible workflows, careful data preprocessing, meaningful evaluation, and interpretable results.
 
-My interest in Healthcare AI grew from intensive NEET preparation,
-where I developed a strong foundation in biology and human physiology.
-Although I ultimately pursued Computer Science, my earlier exposure to
-medical science shaped my interest in applying machine learning to
-healthcare problems.
+---
 
-Through each project, I aim to go beyond model accuracy by understanding
-the clinical meaning of features, identifying limitations in the data and
-methodology, and evaluating model results in the context of healthcare.
+# 📂 Projects
 
-## Projects
-
-| # | Project | Status | Key Technique | Result |
-|---|---------|--------|---------------|--------|
-| 1 | [Diabetes Prediction](./diabetes-prediction) | ✅ Complete | Data leakage detection & fix, Random Forest | 77.27% accuracy (leakage-free) |
-| 2 | Heart Disease Prediction | 🔄 In Progress | Clinical feature comparison, model benchmarking | — |
-| 3 | COVID-19 Clinical Outcomes | 📋 Planned | XGBoost, SMOTE for class imbalance | — |
+| # | Project | Status | Highlights | Best Result |
+|---|---------|--------|------------|-------------|
+| 1 | [Diabetes Prediction](./diabetes-prediction) | ✅ Complete | Data leakage detection & prevention, Random Forest | **77.27% Accuracy** |
+| 2 | [Heart Disease Prediction](./heart-disease-prediction) | ✅ Complete | Multi-model comparison, Hyperparameter tuning, Error Analysis | **81.97% Accuracy** |
+| 3 | COVID-19 Clinical Outcomes | 📋 Planned | Clinical outcome prediction, XGBoost, SMOTE | — |
 | 4 | Skin Lesion Detection | 📋 Planned | CNN, Transfer Learning (EfficientNet) | — |
-| 5 | Brain Tumor MRI Detection | 📋 Planned | Grad-CAM, Explainable AI | — |
-| 6 | Chest X-Ray Detection (Flagship) | 📋 Planned | Full research pipeline, clinical evaluation | — |
-| 7 | Federated Learning Simulation | 📋 Planned | Privacy-preserving AI, FedAvg | — |
+| 5 | Brain Tumor MRI Detection | 📋 Planned | Explainable AI, Grad-CAM | — |
+| 6 | Chest X-Ray Disease Detection *(Flagship Project)* | 📋 Planned | End-to-end deep learning pipeline | — |
+| 7 | Federated Learning Simulation | 📋 Planned | Privacy-preserving Healthcare AI | — |
 
-## A Recurring Principle: Honest Evaluation
+---
 
-The Diabetes Prediction project (#1) includes a documented case of
-identifying and correcting data leakage in my own machine learning
-pipeline.
+# 🎯 Repository Goals
 
-The initial model achieved 88.31% accuracy, but further investigation
-revealed that the result was inflated by target leakage during
-missing-value imputation. After redesigning the preprocessing workflow
-to maintain strict separation between training and test data, the
-corrected model achieved 77.27% accuracy.
+The objective of this repository is to build machine learning solutions that follow a structured and reproducible workflow.
 
-I would rather report a lower, defensible result than an inflated one.
-That principle of methodological honesty is something I intend to carry
-into every project in this repository.
+Each project focuses on:
 
-## Tech Stack
+- Data cleaning and preprocessing
+- Exploratory Data Analysis (EDA)
+- Feature engineering
+- Model training and comparison
+- Hyperparameter tuning
+- Model evaluation using appropriate metrics
+- Error analysis and interpretation
+- Clear documentation and reproducibility
 
-Python · pandas · scikit-learn · XGBoost · PyTorch · matplotlib · seaborn
+---
 
-## About Me
+# 🔬 Development Principles
 
-I'm Mohammad Danish, an online BCA student at Amity University,
-graduating in 2027. I am building this portfolio as part of my preparation
-for graduate research in Healthcare AI, with the goal of pursuing research
-in Japan through the MEXT Scholarship.
+I believe that reliable machine learning starts with reliable methodology.
 
-- GitHub: [@Danish925](https://github.com/Danish925)
-- LinkedIn: [mohd-danish-a89015313](https://www.linkedin.com/in/mohd-danish-a89015313)
+This repository emphasizes:
+
+- Reproducible machine learning pipelines
+- Prevention of data leakage
+- Fair model comparison
+- Appropriate evaluation metrics
+- Transparent reporting of results
+- Understanding model limitations instead of maximizing accuracy alone
+
+The Diabetes Prediction project demonstrates this philosophy by identifying and correcting data leakage before reporting final results.
+
+---
+
+# 🛠️ Tech Stack
+
+### Languages
+
+- Python
+
+### Data Analysis
+
+- NumPy
+- pandas
+
+### Machine Learning
+
+- scikit-learn
+- XGBoost *(planned)*
+
+### Deep Learning *(planned)*
+
+- PyTorch
+
+### Data Visualization
+
+- Matplotlib
+- Seaborn
+
+---
+
+# 🚀 Current Focus
+
+Currently expanding this repository with projects involving:
+
+- Clinical prediction models
+- Medical image analysis
+- Explainable AI (XAI)
+- Deep Learning for Healthcare
+- Research-oriented machine learning workflows
+
+---
+
+# 👨‍💻 About Me
+
+I'm **Mohammad Danish**, a Computer Science student with a strong interest in Machine Learning, Data Science, and Healthcare AI.
+
+This repository serves as my public portfolio, documenting my progress through increasingly complex machine learning projects while following industry-standard development practices.
+
+---
+
+## 📫 Connect
+
+- **GitHub:** https://github.com/Danish925
+- **LinkedIn:** https://www.linkedin.com/in/mohd-danish-a89015313
